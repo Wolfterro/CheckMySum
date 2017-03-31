@@ -1,0 +1,22 @@
+CheckMySum
+==========
+
+A simple checksum viewer made in Python! 
+----------------------------------------
+
+CHANGELOG:
+==========
+
+VERSION 1.0.1:
+- Uppercase option added.
+- Generate hash file option added.
+
+# In progress:
+- Better management of the CheckMySum class structure for other usages (e.g. GUI, standalone module, etc).
+
+#---------------------------------------------------------------------------------------------------------------
+
+VERSION 1.0.0:
+- Initial version of the program.
+
+#---------------------------------------------------------------------------------------------------------------

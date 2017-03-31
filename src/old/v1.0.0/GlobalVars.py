@@ -26,11 +26,11 @@ SOFTWARE.
 
 #===================================
 # Criado por: Wolfterro
-# Versão: 1.0.1 - Python 2.x
-# Data: 31/03/2017
+# Versão: 1.0.0 - Python 2.x
+# Data: 30/03/2017
 #===================================
 
 # Classe de variáveis globais
 # ===========================
 class GlobalVars:
-	Version = "1.0.1"
+	Version = "1.0.0"

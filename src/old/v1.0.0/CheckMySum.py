@@ -26,8 +26,8 @@ SOFTWARE.
 
 #===================================
 # Criado por: Wolfterro
-# Versão: 1.0.1 - Python 2.x
-# Data: 31/03/2017
+# Versão: 1.0.0 - Python 2.x
+# Data: 30/03/2017
 #===================================
 
 # Imports gerais
@@ -51,32 +51,25 @@ sys.setdefaultencoding('utf-8')
 # ============================
 class CheckMySum(object):
 	# Inicializando a classe com o tipo de algoritmo e nome do arquivo
-	# Algorithm: string
-	# Filename: string[]
-	# isUpperCase: bool
-	# HashFileGen: string or None
 	# ================================================================
-	def __init__(self, Algorithm, Filename, isUpperCase, HashFileGen):
+	def __init__(self, Algorithm, Filename):
 		self.Algorithm = Algorithm
 		self.Filename = Filename
-		self.isUpperCase = isUpperCase
-		self.HashFileGen = HashFileGen
 		self.Hash = ""
 		self.ProcessFile()
 
 	# Iniciando processo de checksum do arquivo selecionado
 	# =====================================================
 	def ProcessFile(self):
-		if self.CheckFileAvailability():
+		if self.CheckFileAvailability(self.Filename):
 			self.GetCheckSum()
-			if self.HashFileGen != None:
-				self.GenerateHashFile()
+			self.PrintCheckSum()
 
 	# Verificando a existência do arquivo selecionado
 	# ===============================================
-	def CheckFileAvailability(self):
+	def CheckFileAvailability(self, Filename):
 		if not os.path.isfile(os.path.abspath(self.Filename)):
-			print("\rError! File '%s' not available! Skipping..." % (self.Filename))
+			print("Error! File '%s' not available! Skipping..." % (self.Filename))
 			return False
 
 		return True
@@ -99,35 +92,17 @@ class CheckMySum(object):
 		else:
 			Algo = hashlib.md5()
 
+		print("Checking...", end="")
 		try:
 			with open(os.path.abspath(self.Filename), "rb") as file:
 				for f in file:
 					Algo.update(f)
-			
-			if self.isUpperCase:
-				self.Hash = Algo.hexdigest().upper()
-			else:
-				self.Hash = Algo.hexdigest()
+		
+			self.Hash = Algo.hexdigest()
 		except Exception as e:
 			self.Hash = "N/A - %s" % (e)
 
-	# Gerando arquivo de hash com os resultados dos arquivos escolhidos
-	# =================================================================
-	def GenerateHashFile(self):
-		try:
-			with open(os.path.abspath(self.HashFileGen), "a") as file:
-				file.write("%s  %s\r\n" % (self.Hash, self.Filename))
-		except Exception as e:
-			print("Error! Hash file could not be created!")
-			print(e)
-
-	# Imprimindo o checksum e o nome do arquivo escolhido
-	# ===================================================
-	def PrintCheckSumResult(self):
-		if self.Hash != "":
-			print("\r%s  %s" % (self.Hash, self.Filename))
-
-	# Retornando o checksum do arquivo escolhido
+	# Imprimindo o checksum do arquivo escolhido
 	# ==========================================
-	def StringCheckSum(self):
-		return "%s" % (self.Hash)
+	def PrintCheckSum(self):
+		print("\r%s - %s" % (self.Filename, self.Hash))

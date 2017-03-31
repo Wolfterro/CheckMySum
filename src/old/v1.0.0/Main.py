@@ -27,8 +27,8 @@ SOFTWARE.
 
 #===================================
 # Criado por: Wolfterro
-# Versão: 1.0.1 - Python 2.x
-# Data: 31/03/2017
+# Versão: 1.0.0 - Python 2.x
+# Data: 30/03/2017
 #===================================
 
 # Imports gerais
@@ -63,23 +63,15 @@ def main():
 		sys.exit(0)
 
 	parser = argparse.ArgumentParser()
-	parser.add_argument("-v", "--version", action="store_true", help="Show the programs version and exit", required=False)
 	parser.add_argument("-a", "--algorithm", choices=hashlib.algorithms_guaranteed, help="Defines the hash algorithm to be used", required=True)
 	parser.add_argument("-f", "--files", nargs="+", help="Select the files to be checked", required=True)
-	parser.add_argument("-u", "--upper", action="store_true", help="Display the hash value in uppercase letters", required=False)
-	parser.add_argument("-g", "--generate", nargs=1, help="Generate a checksum file for the files checked", required=False)
+	parser.add_argument("-v", "--version", action="store_true", help="Show the programs version and exit", required=False)
 
 	args = parser.parse_args()
 
 	HashAlgorithm = args.algorithm.lower()
-	HashFileGen = None
-	if args.generate != None:
-		HashFileGen = args.generate[0]
-
 	for file in args.files:
-		print("Checking...", end="")
-		MySum = CheckMySum(HashAlgorithm, file, args.upper, HashFileGen)
-		MySum.PrintCheckSumResult()
+		MySum = CheckMySum(HashAlgorithm, file)
 
 # Inicializando programa
 # ======================
